@@ -1,19 +1,23 @@
 import gc
 
-def Nabeatsu(max_):
-    if max_ >= 100000:
-        print("あほなので100000以上は言えません")
+def Nabeatsu(min_, max_):
+    if max_ >= 1000000000000:
+        print("あほなので1兆以上は言えません")
         return
     
     tplAho1 = ("", "イ～チ", "ニ～", "サ～ン", "ヨ～ン", "ゴ～", "ロ～ク", "ナ～ナ", "ハ～チ", "キュ～ウ")
     tplAho2 = ("", "", "ニ", "サン", "ヨン", "ゴ", "ロク", 'ナナ', 'ハチ', 'キュウ')
-    tplAhox = ("", "", "ジュ", "ヒャク", "セン", "マン")
-    for i in range(1, max_ + 1):
+    tplAhox = ("", "", "ジュ", "ヒャク", "セン", "マン","ジュウマン","ヒャクマン","センマン","オク","ジュウオク","ヒャクオク","センオク")
+    tplAhox2 = ("", "イチ", "ニ", "サン", "ヨン", "ゴ", "ロク", 'ナナ', 'ハチ', 'キュウ')
+    for i in range(min_, max_ + 1):
         if i % 3 == 0 or '3' in str(i):
             strAho = ""
             
             for digit, str1 in enumerate(str(i)[:-1]):
-                strAho += tplAho2[int(str1)] + tplAhox[int(len(str(i)) - digit)]
+                if (int(len(str(i))) - digit) % 4 == 1:
+                    strAho += tplAhox2[int(str1)] + tplAhox[int(len(str(i)) - digit)]
+                elif str1 != "0":
+                    strAho += tplAho2[int(str1)] + tplAhox[int(len(str(i)) - digit)]
             strAho += tplAho1[int(str(i)[-1])] + "！！"
             
             print(strAho)
@@ -24,4 +28,4 @@ def Nabeatsu(max_):
             gc.collect()
         
 if __name__ == "__main__":
-    Nabeatsu(10003)
+    Nabeatsu(1, 10000003)
